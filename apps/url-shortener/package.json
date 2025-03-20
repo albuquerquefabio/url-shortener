@@ -1,0 +1,56 @@
+{
+  "name": "@url-shortener/url-shortener",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "url-shortener",
+    "targets": {
+      "build": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "webpack-cli build",
+          "args": [
+            "node-env=production"
+          ]
+        },
+        "configurations": {
+          "development": {
+            "args": [
+              "node-env=development"
+            ]
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "url-shortener:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "url-shortener:build:development"
+          },
+          "production": {
+            "buildTarget": "url-shortener:build:production"
+          }
+        }
+      },
+      "test": {
+        "options": {
+          "passWithNoTests": true
+        }
+      },
+      "docker-build": {
+        "dependsOn": [
+          "build"
+        ],
+        "command": "docker build -f apps/url-shortener/Dockerfile . -t url-shortener"
+      }
+    }
+  }
+}
