@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getOriginalUrl } from '../services/urlShortenerService';
+import { Spin, Result } from 'antd';
 
 export function Redirect() {
   const { shortUrl } = useParams<{ shortUrl: string }>();
@@ -8,6 +9,7 @@ export function Redirect() {
   const [error, setError] = useState<boolean>(false);
   const [notFount, setNotFound] = useState<boolean>(false);
   const hasFetched = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (hasFetched.current) return;
@@ -15,7 +17,7 @@ export function Redirect() {
 
     const fetchUrl = async () => {
       try {
-        const { data, status } = await getOriginalUrl(String(shortUrl));
+        const { data } = await getOriginalUrl(String(shortUrl));
 
         // Check if the URL starts with http or https
         if (
@@ -27,7 +29,6 @@ export function Redirect() {
           window.location.href = `https://${data.original}`;
         }
       } catch (error: Error | any) {
-        console.error(error);
         const { status } = error;
         if (status === 404) {
           setNotFound(true);
@@ -43,28 +44,69 @@ export function Redirect() {
   }, [shortUrl]);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
   }
 
   if (notFount) {
-    return <NotFound />;
+    return (
+      <Result
+        status="404"
+        title="404"
+        subTitle="Sorry, the URL you visited does not exist."
+        extra={
+          <button
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#1890ff',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+            onClick={() => navigate('/')}
+          >
+            Back to Home
+          </button>
+        }
+      />
+    );
   }
 
   if (error) {
-    return <Error />;
+    return (
+      <Result
+        status="500"
+        title="500"
+        subTitle="Sorry, something went wrong. Please try again later."
+        extra={
+          <button
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#1890ff',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+            onClick={() => navigate('/')}
+          >
+            Back to Home
+          </button>
+        }
+      />
+    );
   }
 
   return null;
-}
-
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-function NotFound() {
-  return <div>URL not found.</div>;
-}
-
-function Error() {
-  return <div>Something went wrong. Please try again later.</div>;
 }
