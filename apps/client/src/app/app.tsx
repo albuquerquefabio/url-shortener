@@ -11,10 +11,9 @@ import { useTheme, ThemeSwitcher } from '../theme-switcher/theme-switcher'; // I
 const { Header, Content } = Layout;
 
 export function App() {
-  const { theme } = useTheme(); // Use theme from the new module
+  const { theme } = useTheme();
 
   useEffect(() => {
-    // Ensure the theme is applied on initial load
     document.body.className = theme;
   }, [theme]);
 
@@ -54,7 +53,7 @@ export function App() {
             </Routes>
           </Content>
         </Layout>
-        <ThemeSwitcher /> {/* Add ThemeSwitcher component */}
+        <ThemeSwitcher />
       </Flex>
     </ConfigProvider>
   );
