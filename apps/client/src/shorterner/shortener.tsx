@@ -35,40 +35,53 @@ export function Shortener() {
     message.success('Shortened URL copied to clipboard!');
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleShorten();
+  };
+
   return (
     <div className={styles.centerContainer}>
       <div className={styles.card}>
-        <Space.Compact style={{ width: '100%' }}>
-          <Input
-            inputMode="url"
-            placeholder="Enter URL https://example.com"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            style={{ width: '100%' }}
-            disabled={loading} // Disable input while loading
-          />
-          <Button type="primary" onClick={handleShorten} loading={loading}>
-            Short
-          </Button>
-        </Space.Compact>
-        {shortUrl && (
-          <div className={styles.resultContainer}>
-            <a
-              href={`${env.app.url}/${shortUrl}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.resultText}
-            >
-              {`${env.app.url}/${shortUrl}`}
-            </a>
-            <Button
-              type="default"
-              icon={<CopyOutlined />}
-              onClick={copyToClipboard}
-            >
-              Copy
+        <form onSubmit={handleSubmit}>
+          <h2>Enter the URL to shorten</h2>
+          <Space.Compact style={{ width: '100%' }}>
+            <Input
+              inputMode="url"
+              placeholder="https://example.com"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              style={{ width: '100%' }}
+              disabled={loading}
+            />
+            <Button type="primary" htmlType="submit" loading={loading}>
+              Short
             </Button>
-          </div>
+          </Space.Compact>
+        </form>
+        {shortUrl && (
+          <>
+            <span className={styles.successText}>
+              Success! Here's your short URL:
+            </span>
+            <div className={styles.resultContainer}>
+              <a
+                href={`${env.app.url}/${shortUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.resultText}
+              >
+                {`${env.app.url}/${shortUrl}`}
+              </a>
+              <Button
+                type="default"
+                icon={<CopyOutlined />}
+                onClick={copyToClipboard}
+              >
+                Copy
+              </Button>
+            </div>
+          </>
         )}
       </div>
     </div>
