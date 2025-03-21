@@ -15,7 +15,6 @@ export const shortenerUrl = async (url: string): Promise<UrlShortener> => {
 export const getOriginalUrl = async (
   shortUrl: string
 ): Promise<{ data: { original: string }; status: number }> => {
-  console.log({ shortUrl });
   const { data, status } = await axios.get<{ original: string }>(
     `${env.server.api}/url/${shortUrl}`
   );

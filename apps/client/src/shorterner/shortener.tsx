@@ -24,7 +24,7 @@ export function Shortener() {
       setShortUrl(data.short);
       setUrl(''); // Clear the input
     } catch (error) {
-      console.error(error);
+      message.error('An error occurred. Please try again.');
     } finally {
       setLoading(false); // Set loading to false
     }
