@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { shortenerUrl } from '../services/urlShortenerService';
 import { Button, Input, Space, message } from 'antd';
+import { CopyOutlined } from '@ant-design/icons'; // Import copy icon
 
 import styles from './shortener.module.scss';
 import env from '../config/env';
@@ -29,13 +30,18 @@ export function Shortener() {
     }
   };
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`${env.app.url}/${shortUrl}`);
+    message.success('Shortened URL copied to clipboard!');
+  };
+
   return (
     <div className={styles.centerContainer}>
       <div className={styles.card}>
         <Space.Compact style={{ width: '100%' }}>
           <Input
             inputMode="url"
-            placeholder="Enter URL"
+            placeholder="Enter URL https://example.com"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             style={{ width: '100%' }}
@@ -47,7 +53,21 @@ export function Shortener() {
         </Space.Compact>
         {shortUrl && (
           <div className={styles.resultContainer}>
-            <p className={styles.resultText}>{`${env.app.url}/${shortUrl}`}</p>
+            <a
+              href={`${env.app.url}/${shortUrl}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.resultText}
+            >
+              {`${env.app.url}/${shortUrl}`}
+            </a>
+            <Button
+              type="default"
+              icon={<CopyOutlined />}
+              onClick={copyToClipboard}
+            >
+              Copy
+            </Button>
           </div>
         )}
       </div>
