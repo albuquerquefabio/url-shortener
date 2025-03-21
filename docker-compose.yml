@@ -7,3 +7,28 @@ services:
     volumes:
       - ./mongodb:/data/db
     restart: always
+
+  backend:
+    container_name: url-shortener-api
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    build:
+      context: ./
+      dockerfile: ./apps/url-shortener/Dockerfile
+    # command: sh -c "yarn build:back"
+
+  frontend:
+    container_name: url-shortener-client
+    restart: always
+    ports:
+      - '3001:80'
+    depends_on:
+      - backend
+    build:
+      context: ./
+      dockerfile: ./apps/client/DockerFile.dev
