@@ -20,9 +20,24 @@ export class UrlService {
     });
   }
   async findOne(short: string) {
-    return await this.urlModel.findOne({
-      short,
-      status: true,
-    });
+    const [url] = await Promise.all([
+      this.urlModel.findOne({
+        short,
+        status: true,
+      }),
+      this.urlModel.updateOne(
+        {
+          short,
+          status: true,
+        },
+        {
+          $inc: {
+            clicks: 1,
+          },
+        }
+      ),
+    ]);
+
+    return url;
   }
 }
