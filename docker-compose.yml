@@ -20,15 +20,14 @@ services:
     build:
       context: ./
       dockerfile: ./apps/url-shortener/Dockerfile
-    # command: sh -c "yarn build:back"
 
   frontend:
     container_name: url-shortener-client
     restart: always
     ports:
-      - '3001:80'
+      - '4200:80'
     depends_on:
       - backend
     build:
       context: ./
-      dockerfile: ./apps/client/DockerFile.dev
+      dockerfile: ./apps/client/Dockerfile
