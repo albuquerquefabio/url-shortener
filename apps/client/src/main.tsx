@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import styles from './styles.scss';
 
 import App from './app/app';
 

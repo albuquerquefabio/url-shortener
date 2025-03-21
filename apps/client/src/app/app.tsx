@@ -4,50 +4,43 @@ import styles from './app.module.scss';
 import { Route, Routes, Link } from 'react-router-dom';
 
 import { Shortener } from '../shorterner/shortener';
+import { Flex, Layout } from 'antd';
+
+const { Header, Content } = Layout;
 
 export function App() {
   return (
-    <div>
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <div className="App">
-        <Shortener />
-      </div>
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
-      </Routes>
-      {/* END: routes */}
-    </div>
+    <Flex justify="center" align="middle" style={{ minHeight: '100vh' }}>
+      <Layout className={styles.layoutStyle}>
+        <Header className={styles.headerStyle}>
+          <Link to="/">
+            <h1 className={styles.appTitle}>URL Shortener</h1>
+          </Link>
+        </Header>
+        <Content className={styles.contentStyle}>
+          {/* <Flex justify="center" align="center"> */}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div>
+                  <Shortener />
+                </div>
+              }
+            />
+            <Route
+              path="/page-2"
+              element={
+                <div>
+                  <Link to="/">Click here to go back to root page.</Link>
+                </div>
+              }
+            />
+          </Routes>
+          {/* </Flex> */}
+        </Content>
+      </Layout>
+    </Flex>
   );
 }
 

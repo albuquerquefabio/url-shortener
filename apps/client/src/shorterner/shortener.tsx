@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { shortenerUrl } from '../services/urlShortenerService';
+import { Button, Input, Space } from 'antd';
+
+import styles from './shortener.module.scss';
 
 export function Shortener() {
   const [url, setUrl] = useState<string>('');
@@ -7,9 +10,8 @@ export function Shortener() {
 
   const handleShorten = async () => {
     try {
-      console.log({ url });
       const data = await shortenerUrl(url);
-      console.log(data);
+
       setShortUrl(data.short);
     } catch (error) {
       console.error(error);
@@ -17,10 +19,24 @@ export function Shortener() {
   };
 
   return (
-    <div>
-      <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
-      <button onClick={handleShorten}>Shorten</button>
-      <p>{shortUrl}</p>
+    <div className={styles.centerContainer}>
+      <div className={styles.card}>
+        <Space.Compact style={{ width: '100%' }}>
+          <Input
+            inputMode="url"
+            placeholder="Enter URL"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            style={{ width: '100%' }}
+          />
+          <Button type="primary" onClick={handleShorten}>
+            Short
+          </Button>
+        </Space.Compact>
+        <div>
+          <p>{shortUrl}</p>
+        </div>
+      </div>
     </div>
   );
 }
