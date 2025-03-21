@@ -19,7 +19,6 @@ export function Redirect() {
       try {
         const { data } = await getOriginalUrl(String(shortUrl));
 
-        // Check if the URL starts with http or https
         if (
           data.original.startsWith('http://') ||
           data.original.startsWith('https://')

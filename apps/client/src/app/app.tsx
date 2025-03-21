@@ -1,27 +1,17 @@
 import styles from './app.module.scss';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 
 import { Shortener } from '../shorterner/shortener';
 import { Flex, Layout, ConfigProvider, theme as antdTheme } from 'antd';
 import { Redirect } from '../redirect/redirect';
-import { LinkOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons'; // Updated icons
+import { LinkOutlined } from '@ant-design/icons';
+import { useTheme, ThemeSwitcher } from '../theme-switcher/theme-switcher'; // Import new module
 
 const { Header, Content } = Layout;
 
 export function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    // Retrieve theme from local storage or default to 'light'
-    return localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
-  });
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme); // Save theme to local storage
-      return newTheme;
-    });
-  };
+  const { theme } = useTheme(); // Use theme from the new module
 
   useEffect(() => {
     // Ensure the theme is applied on initial load
@@ -47,8 +37,8 @@ export function App() {
           <Header
             className={styles.headerStyle}
             style={{
-              backgroundColor: theme === 'light' ? '#e3e3e3' : '#1a1a1a', // Dynamic background
-              color: theme === 'light' ? '#333' : '#fff', // Dynamic text color
+              backgroundColor: theme === 'light' ? '#e3e3e3' : '#1a1a1a',
+              color: theme === 'light' ? '#333' : '#fff',
             }}
           >
             <Link to="/" style={{ color: theme === 'light' ? '#333' : '#fff' }}>
@@ -64,22 +54,7 @@ export function App() {
             </Routes>
           </Content>
         </Layout>
-        <button
-          onClick={toggleTheme}
-          style={{
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            padding: '10px 15px',
-            borderRadius: '5px',
-            backgroundColor: theme === 'light' ? '#000' : '#fff',
-            color: theme === 'light' ? '#fff' : '#000',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          {theme === 'light' ? <MoonOutlined /> : <SunOutlined />}{' '}
-        </button>
+        <ThemeSwitcher /> {/* Add ThemeSwitcher component */}
       </Flex>
     </ConfigProvider>
   );

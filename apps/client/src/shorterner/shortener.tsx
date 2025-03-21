@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { shortenerUrl } from '../services/urlShortenerService';
 import { Button, Input, Space, message } from 'antd';
-import { CopyOutlined } from '@ant-design/icons'; // Import copy icon
+import { CopyOutlined } from '@ant-design/icons';
 
 import styles from './shortener.module.scss';
 import env from '../config/env';
@@ -10,7 +10,7 @@ import { isValidUrl } from '../utils/urlValidate';
 export function Shortener() {
   const [url, setUrl] = useState<string>('');
   const [shortUrl, setShortUrl] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false); // Added loading state
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleShorten = async () => {
     if (!isValidUrl(url)) {
@@ -18,15 +18,15 @@ export function Shortener() {
       return;
     }
 
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const data = await shortenerUrl(url);
       setShortUrl(data.short);
-      setUrl(''); // Clear the input
+      setUrl('');
     } catch (error) {
       message.error('An error occurred. Please try again.');
     } finally {
-      setLoading(false); // Set loading to false
+      setLoading(false);
     }
   };
 
