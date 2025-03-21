@@ -7,6 +7,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import env from '../config/dotenv/env';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
+import { UsersModule } from '../api/users/users.module';
+import { AuthModule } from '../auth/auth.module';
+import { AppCacheModule } from '../infra/redis/cache.module';
 
 @Module({
   imports: [
@@ -37,10 +41,17 @@ import { APP_GUARD } from '@nestjs/core';
       ],
     }),
     UrlModule,
+    UsersModule,
+    AuthModule,
+    AppCacheModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_GUARD,
+      useClass: LocalAuthGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
