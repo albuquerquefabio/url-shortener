@@ -5,6 +5,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 
 import { Shortener } from '../shorterner/shortener';
 import { Flex, Layout } from 'antd';
+import { Redirect } from '../redirect/redirect';
 
 const { Header, Content } = Layout;
 
@@ -20,22 +21,8 @@ export function App() {
         <Content className={styles.contentStyle}>
           {/* <Flex justify="center" align="center"> */}
           <Routes>
-            <Route
-              path="/"
-              element={
-                <div>
-                  <Shortener />
-                </div>
-              }
-            />
-            <Route
-              path="/page-2"
-              element={
-                <div>
-                  <Link to="/">Click here to go back to root page.</Link>
-                </div>
-              }
-            />
+            <Route path="/" element={<Shortener />} />
+            <Route path="/:shortUrl" element={<Redirect />} />
           </Routes>
           {/* </Flex> */}
         </Content>

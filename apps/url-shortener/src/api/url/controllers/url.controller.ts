@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { UrlService } from '../services/url.service';
 import { CreateUrlDto } from '../dto/create-url.dto';
 
@@ -17,7 +24,11 @@ export class UrlController {
   }
 
   @Get(':short')
-  async findOne(short: string) {
-    return await this.urlService.findOne(short);
+  async findOne(@Param('short') short: string) {
+    const url = await this.urlService.findOne(short);
+    if (!url) {
+      throw new NotFoundException('URL not found');
+    }
+    return url;
   }
 }
