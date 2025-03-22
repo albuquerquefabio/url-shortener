@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import env from '../../../config/dotenv/env';
 import { shortId } from '../../../utils/short-id';
 
@@ -30,6 +30,13 @@ export class Url {
     default: true,
   })
   status?: boolean;
+
+  // add _user Type.ObjectId
+  @Prop({
+    type: Types.ObjectId,
+    ref: 'User',
+  })
+  _user?: Types.ObjectId;
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);
