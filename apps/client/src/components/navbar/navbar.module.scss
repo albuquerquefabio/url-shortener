@@ -1,0 +1,76 @@
+.headerStyle {
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  margin-bottom: 24px;
+}
+
+.appTitle {
+  margin: 0;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navLinks {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.mobileBtn {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.mobileOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+.mobileNav {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  width: 70%;
+  max-width: 300px;
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+  z-index: 999;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+
+  a {
+    font-size: 1.2rem;
+    padding: 0.5rem 0;
+  }
+
+  button {
+    width: 100%;
+  }
+}

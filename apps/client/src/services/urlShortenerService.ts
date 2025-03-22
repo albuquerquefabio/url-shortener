@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { UrlShortener } from '../interface/urlShortenerInterface';
+
 import env from '../config/env';
+import { UrlShortener } from '../interface/UrlShortenerInterface';
 
 export const shortenerUrl = async (url: string): Promise<UrlShortener> => {
   const response = await axios.post<
