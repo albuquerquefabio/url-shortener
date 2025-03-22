@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { Flex, Layout, ConfigProvider, theme as antdTheme } from 'antd';
-import { Redirect } from '../redirect/Redirect';
 import { useTheme, ThemeSwitcher } from '../theme-switcher/theme-switcher'; // Import new module
 import { ApiProvider } from '../context/ApiContext';
 import { UserProvider } from '../context/UserContext';
@@ -14,6 +13,7 @@ import Signup from '../components/signup/Signup';
 import { NavBar } from '../components/navbar/NavBar';
 import Panel from '../components/panel/Panel';
 import { Shortener } from '../shorterner/shortener';
+import { Redirect } from '../redirect/Redirect';
 
 const { Content } = Layout;
 
