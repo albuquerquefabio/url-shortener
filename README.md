@@ -116,4 +116,5 @@ docker compose up -d
 <img width="1073" alt="Screenshot 2025-03-22 at 01 58 46" src="https://github.com/user-attachments/assets/da3b2d2a-11e5-482b-8ac5-5aef11d2cc8a" />
 <img width="1073" alt="Screenshot 2025-03-22 at 01 59 06" src="https://github.com/user-attachments/assets/4d9ba5eb-8671-470b-a008-979a5e8faa5a" />
 <img width="1101" alt="Screenshot 2025-03-22 at 02 04 16" src="https://github.com/user-attachments/assets/be25870b-047d-43f2-aeff-5d367e0f0e3a" />
-<img width="1101" alt="Screenshot 2025-03-22 at 02 04 37" src="https://github.com/user-attachments/assets/b214f7c0-811e-4ce0-88f0-f436046aa2d8" />
+<img width="1101" alt="Screenshot 2025-03-22 at 03 34 46" src="https://github.com/user-attachments/assets/b78502cb-a2c8-4943-a405-d5412c9b6455" />
+
