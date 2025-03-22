@@ -14,7 +14,6 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 ## Project Structure
 
 - **apps/**: Contains the backend and frontend applications.
-- **libs/**: Contains shared libraries used across the applications.
 
 ## Features
 
