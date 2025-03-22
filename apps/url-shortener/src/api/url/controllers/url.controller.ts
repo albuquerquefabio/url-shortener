@@ -17,7 +17,6 @@ export class UrlController {
   @Public()
   @Post()
   async create(@Body() createUrlDto: CreateUrlDto) {
-    console.log(createUrlDto);
     return await this.urlService.create(createUrlDto);
   }
 
