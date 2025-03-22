@@ -5,19 +5,19 @@ import {
   Get,
   NotFoundException,
   Param,
-  Patch,
   Post,
+  Put,
   Request,
 } from '@nestjs/common';
 import { UrlService } from '../services/url.service';
 import { CreateUrlDto } from '../dto/create-url.dto';
 import { User } from '../../users/entities/user.entity';
 
-@Controller('url')
+@Controller('url-custom')
 export class UrlCustomController {
   constructor(private readonly urlService: UrlService) {}
 
-  @Post('custom')
+  @Post('')
   async create(
     @Body() createUrlDto: CreateUrlDto,
     @Request() req: Express.Request & { user: User }
@@ -25,12 +25,12 @@ export class UrlCustomController {
     return await this.urlService.create(createUrlDto, req.user.id);
   }
 
-  @Get('custom')
+  @Get('')
   async find(@Request() req: Express.Request & { user: User }) {
     return await this.urlService.find(req.user.id);
   }
 
-  @Get('custom/:short')
+  @Get('/:short')
   async findOne(
     @Param('short') short: string,
     @Request() req: Express.Request & { user: User }
@@ -42,16 +42,16 @@ export class UrlCustomController {
     return url;
   }
 
-  @Patch('custom/:id')
+  @Put('/:id')
   async update(
     @Param('id') id: string,
     @Body() updateUrlDto: Pick<CreateUrlDto, 'short'>,
     @Request() req: Express.Request & { user: User }
   ) {
-    return await this.urlService.update(id, updateUrlDto, req.user.id);
+    return await this.urlService.update(id, req.user.id, updateUrlDto);
   }
 
-  @Delete('custom/:id')
+  @Delete('/:id')
   async remove(
     @Param('id') id: string,
     @Request() req: Express.Request & { user: User }

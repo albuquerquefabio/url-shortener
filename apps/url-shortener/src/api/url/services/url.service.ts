@@ -54,7 +54,11 @@ export class UrlService {
     return url;
   }
 
-  async update(_id: string, userId: User['_id'], updateUrl: CreateUrlDto) {
+  async update(
+    _id: string,
+    userId: User['_id'],
+    updateUrl: Pick<CreateUrlDto, 'short'>
+  ) {
     return await this.urlModel.updateOne(
       {
         _id,

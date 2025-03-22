@@ -15,6 +15,8 @@ export class Url {
 
   @Prop({
     type: String,
+    min: [3, 'The shortened URL must be at least 3 characters'],
+    max: [50, 'The shortened URL must not exceed 50 characters'],
     unique: [true, 'The shortened URL must be unique'],
   })
   short?: string;
