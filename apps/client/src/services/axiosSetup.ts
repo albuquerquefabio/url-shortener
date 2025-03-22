@@ -18,7 +18,12 @@ axios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response.status === 401) {
+    const isShortUrl = /^\/[a-zA-Z0-9-_]+$/.test(window.location.pathname);
+    if (
+      error.response.status === 401 &&
+      !isShortUrl &&
+      window.location.pathname !== '/'
+    ) {
       localStorage.removeItem('authToken');
       window.location.href = '/login';
     }

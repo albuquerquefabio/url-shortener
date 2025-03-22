@@ -1,6 +1,12 @@
-import { Layout, Button, Menu, Avatar } from 'antd';
+import { Layout, Button, Avatar } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { LinkOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import {
+  LinkOutlined,
+  MenuOutlined,
+  CloseOutlined,
+  LogoutOutlined,
+  LinkOutlined as LinkIcon,
+} from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import styles from './navbar.module.scss';
 import { useTheme } from '../../theme-switcher/theme-switcher';
@@ -30,13 +36,18 @@ export const NavBar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    if (!token && window.location.pathname !== '/signup') {
+    const isShortUrl = /^\/[a-zA-Z0-9-_]+$/.test(window.location.pathname);
+    if (
+      !token &&
+      !isShortUrl &&
+      window.location.pathname !== '/signup' &&
+      window.location.pathname !== '/'
+    ) {
       navigate('/login');
     }
   }, [navigate]);
 
   useEffect(() => {
-    // Add body scroll lock when mobile menu is open
     if (nav) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -66,21 +77,47 @@ export const NavBar = () => {
         <div className={styles.navLinks}>
           {user?.name ? (
             <>
-              <Avatar
-                style={{
-                  backgroundColor: '#1890ff',
-                  verticalAlign: 'middle',
-                }}
-              >
-                {getInitials(user.name)}
-              </Avatar>
-              {/* <Link to="/panel">Panel</Link> */}
-              <Button onClick={handleLogout}>Logout</Button>
+              <div className={styles.userControlsLine}>
+                <Avatar
+                  style={{
+                    backgroundColor: '#1890ff',
+                    verticalAlign: 'middle',
+                    marginBottom: '8px',
+                  }}
+                >
+                  {getInitials(user.name)}
+                </Avatar>
+                <Button
+                  type="primary"
+                  onClick={() => navigate('/panel')}
+                  icon={<LinkIcon />}
+                  style={{
+                    background: theme === 'light' ? '#1890ff' : '#177ddc',
+                  }}
+                  className={styles.urlButton}
+                >
+                  My URLs
+                </Button>
+                <LogoutOutlined
+                  onClick={handleLogout}
+                  style={{
+                    fontSize: '18px',
+                    cursor: 'pointer',
+                    marginTop: '8px',
+                    minHeight: '32px',
+                  }}
+                  title="Logout"
+                />
+              </div>
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Button type="link" onClick={() => navigate('/login')}>
+                Login
+              </Button>
+              <Button type="primary" onClick={() => navigate('/signup')}>
+                Sign Up
+              </Button>
             </>
           )}
         </div>
@@ -100,28 +137,44 @@ export const NavBar = () => {
             >
               {user?.username ? (
                 <>
-                  <Avatar
-                    style={{
-                      backgroundColor: '#1890ff',
-                      verticalAlign: 'middle',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    {getInitials(user.name)}
-                  </Avatar>
-                  <Link to="/panel" onClick={handleNav}>
-                    Panel
-                  </Link>
-                  <Button onClick={handleLogout}>Logout</Button>
+                  <div className={styles.userControls}>
+                    <div className={styles.userDetails}>
+                      <Avatar
+                        style={{
+                          backgroundColor: '#1890ff',
+                          verticalAlign: 'middle',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        {getInitials(user.name)}
+                      </Avatar>
+                      <span style={{ marginLeft: '8px' }}>{user.username}</span>
+                    </div>
+                    <Button
+                      type="primary"
+                      icon={<LinkIcon />}
+                      onClick={() => navigate('/panel')}
+                      style={{
+                        background: theme === 'light' ? '#1890ff' : '#177ddc',
+                      }}
+                      className={styles.urlButton}
+                    >
+                      My URLs
+                    </Button>
+
+                    <Button onClick={handleLogout} icon={<LogoutOutlined />}>
+                      Logout
+                    </Button>
+                  </div>
                 </>
               ) : (
                 <>
-                  <Link to="/login" onClick={handleNav}>
+                  <Button type="link" onClick={() => navigate('/login')}>
                     Login
-                  </Link>
-                  <Link to="/signup" onClick={handleNav}>
+                  </Button>
+                  <Button type="primary" onClick={() => navigate('/signup')}>
                     Sign Up
-                  </Link>
+                  </Button>
                 </>
               )}
             </div>

@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { shortenerUrl } from '../services/urlShortenerService';
+import { createCustomShortenerUrl } from '../services/urlCustomService';
 import { Button, Input, Space, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
+import { useUser } from '../context/UserContext';
 
 import styles from './shortener.module.scss';
 import env from '../config/env';
 import { isValidUrl } from '../utils/urlValidate';
 
 export function Shortener() {
+  const { user } = useUser();
   const [url, setUrl] = useState<string>('');
   const [shortUrl, setShortUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,7 +23,9 @@ export function Shortener() {
 
     setLoading(true);
     try {
-      const data = await shortenerUrl(url);
+      const data = user
+        ? await createCustomShortenerUrl(url)
+        : await shortenerUrl(url);
       setShortUrl(data.short);
       setUrl('');
     } catch (error) {

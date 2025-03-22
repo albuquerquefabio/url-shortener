@@ -28,12 +28,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    if (token) {
+    const currentPath = window.location.pathname;
+    const isShortUrl = /^\/[a-zA-Z0-9-_]+$/.test(currentPath);
+    if (token && !isShortUrl && currentPath !== '/') {
       fetchUser();
     } else {
       setUser(null);
-      // Optionally, navigate to the login page if needed
-      // navigate('/login');
     }
   }, [fetchUser]);
 

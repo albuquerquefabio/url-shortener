@@ -22,6 +22,11 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 - Redirect Functionality
 - Copy to Clipboard
 - Theme Management
+- Custom URL Slugs
+- Visit Analytics
+- User Authentication
+- Rate Limiting
+- URL Validation
 
 ### Feature Checklist
 
@@ -34,11 +39,11 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 
 #### Extra:
 
-- [ ] Add support for accounts so people can view the URLs they created
+- [x] Add support for accounts so people can view the URLs they created
 - [x] Validate the URL provided is an actual URL
 - [x] Display an error message if invalid
 - [x] Make it easy to copy the shortened URL to the clipboard
-- [ ] Allow users to modify the slug of their URL
+- [x] Allow users to modify the slug of their URL
 - [x] Track visits to the shortened URL
 - [x] Add rate-limiting to prevent bad-actors from spamming the service
 
