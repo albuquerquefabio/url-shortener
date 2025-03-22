@@ -31,7 +31,6 @@ jobs:
           cache: 'yarn'
 
       - run: yarn install
-      - uses: nrwl/nx-set-shas@v4
 
       - name: Build project
         run: yarn nx run-many --target=build --projects=client,url-shortener
