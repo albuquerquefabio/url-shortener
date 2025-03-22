@@ -92,9 +92,15 @@ To start only the MongoDB database using Docker:
 docker compose up -d mongodb
 ```
 
+To start only the Redis database using Docker:
+
+```bash
+docker compose up -d redis
+```
+
 ### Run the Project in Production Mode
 
-To run the entire project (backend, frontend, and database) in production mode using Docker:
+To run the entire project (backend, frontend, Redis and database) in production mode using Docker:
 
 ```bash
 docker compose up -d
