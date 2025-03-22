@@ -6,7 +6,7 @@ const ThemeContext = createContext<{
   toggleTheme: () => void;
 }>({
   theme: 'light',
-  toggleTheme: () => {},
+  toggleTheme: () => null,
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
