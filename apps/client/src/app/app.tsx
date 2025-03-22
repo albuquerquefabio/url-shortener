@@ -12,7 +12,7 @@ import Signup from '../components/signup/Signup';
 import { NavBar } from '../components/navbar/NavBar';
 import Panel from '../components/panel/Panel';
 import { Redirect } from '../redirect/Redirect';
-import { Shortener } from '../shorterner/shortener';
+import { Shortener } from '../shortener/shortener';
 
 const { Content } = Layout;
 
