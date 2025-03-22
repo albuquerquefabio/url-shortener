@@ -33,5 +33,5 @@ jobs:
       - run: yarn install
       - uses: nrwl/nx-set-shas@v4
 
-      - run: npx nx build client --prod
-      - run: npx nx build url-shortener --prod
+      - name: Build project
+        run: yarn nx run-many --target=build --projects=client,url-shortener
