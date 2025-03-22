@@ -6,8 +6,17 @@ import {
 import { hash, compare } from 'bcrypt';
 import { UserRoles } from '../api/users/interfaces/users.interface';
 
-export const hasObject = (obj: unknown): boolean =>
-  Boolean(obj && typeof obj === 'object' && Object.keys(obj as object).length);
+export const hasObject = (obj: unknown) => {
+  if (typeof obj === 'string') {
+    try {
+      const parsed = JSON.parse(obj);
+      return parsed && typeof parsed === 'object' && Object.keys(parsed).length;
+    } catch {
+      return false;
+    }
+  }
+  return obj && typeof obj === 'object' && Object.keys(obj as object).length;
+};
 
 export const hashPassword = async (password: string): Promise<string> => {
   const saltOrRounds = 10;

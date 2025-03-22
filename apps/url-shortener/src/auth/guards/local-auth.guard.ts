@@ -60,6 +60,7 @@ export class LocalAuthGuard implements CanActivate {
     const result = await this.redisCache.readData<{
       access_token: string;
     }>(`#Session-${key}:${token}`);
+
     if (!result) throw new UnauthorizedException();
     return result.access_token;
   }

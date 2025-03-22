@@ -24,8 +24,9 @@ export class AuthService {
     password: string
   ): Promise<{ access_token: string }> {
     const user = await this.validateUser(username, password);
+
     const access_token = await this.generateToken(user);
-    await this.storeToken(user.id, access_token);
+    await this.storeToken(user._id, access_token);
     return { access_token };
   }
 
@@ -47,12 +48,12 @@ export class AuthService {
   }
 
   private async generateToken(user: Omit<User, 'password'>): Promise<string> {
-    const { username, name, id, roles } = user;
-    const payload = { username, name, id, roles };
+    const { username, name, _id: id, roles, email } = user;
+    const payload = { username, name, id: String(id), roles, email };
     return await this.jwtService.signAsync(payload);
   }
 
-  private async storeToken(userId: User['id'], token: string): Promise<void> {
+  private async storeToken(userId: User['_id'], token: string): Promise<void> {
     await this.redisCache.createData(
       `#Session-${userId}:${token}`,
       { access_token: token },

@@ -31,7 +31,7 @@ export class AuthController {
     return req.user;
   }
 
-  @Delete('/logout')
+  @Delete('logout')
   async logout(
     @Request()
     req: Express.Request & { user: User; headers: { authorization: string } }

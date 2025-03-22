@@ -44,25 +44,28 @@ export class UsersService implements IUsersService {
     id: string,
     select?: Partial<Record<keyof User, boolean>>
   ): Promise<Partial<User>> {
-    const query = this.userModel.findOne({
-      $or: [
-        ...(isId(id) ? [{ _id: id, status: true }] : []),
-        { username: id, status: true },
-        { email: id, status: true },
-      ],
-    });
+    const user = await this.userModel
+      .findOne(
+        {
+          $or: [
+            ...(isId(id) ? [{ _id: id, status: true }] : []),
+            { username: id, status: true },
+            { email: id, status: true },
+          ],
+        },
+        {
+          ...(select ? select : {}),
+        }
+      )
+      .lean()
+      .exec();
 
-    if (select) {
-      query.select(select);
-    }
-
-    const user = await query.exec();
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const user = await this.userModel.findById(id);
+    const user = await this.userModel.findById(id).lean().exec();
 
     if (!user) throw new NotFoundException('User not found.');
 
@@ -80,7 +83,7 @@ export class UsersService implements IUsersService {
   }
 
   async delete(id: string): Promise<void> {
-    const user = await this.userModel.findById(id).select('_id');
+    const user = await this.userModel.findById(id).select('_id').lean().exec();
     if (!user) throw new NotFoundException('User not found');
 
     await this.userModel.findByIdAndUpdate(id, { status: false });

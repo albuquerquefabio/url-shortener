@@ -27,7 +27,7 @@ export class CacheService implements ICacheService {
 
   async readData<T>(key: string): Promise<T | null> {
     const value = await this.cacheManager.get<T>(key);
-    if (value && hasObject(value)) return value;
+    if (value && hasObject(value)) return JSON.parse(String(value));
     return null;
   }
 

@@ -8,13 +8,16 @@ import {
 } from '@nestjs/common';
 import { UrlService } from '../services/url.service';
 import { CreateUrlDto } from '../dto/create-url.dto';
+import { Public } from '../../../auth/constants/auth-constants';
 
 @Controller('url')
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
+  @Public()
   @Post()
   async create(@Body() createUrlDto: CreateUrlDto) {
+    console.log(createUrlDto);
     return await this.urlService.create(createUrlDto);
   }
 
@@ -22,7 +25,7 @@ export class UrlController {
   async find() {
     return await this.urlService.find();
   }
-
+  @Public()
   @Get(':short')
   async findOne(@Param('short') short: string) {
     const url = await this.urlService.findOne(short);
