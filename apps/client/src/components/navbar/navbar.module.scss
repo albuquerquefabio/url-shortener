@@ -74,3 +74,49 @@
     width: 100%;
   }
 }
+
+.userControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.userControlsLine {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+
+  span {
+    margin: auto;
+  }
+}
+.userDetails {
+  width: 100%;
+}
+
+.urlButton {
+  display: flex;
+  padding: 8px 24px;
+  font-size: 14px;
+  margin: 2px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  color: white;
+
+  span[role='img'] {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

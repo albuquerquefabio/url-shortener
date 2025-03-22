@@ -18,7 +18,9 @@ export function Login() {
     try {
       await apiService.login(values.username, values.password);
       await fetchUser();
-      navigate('/panel');
+      const intendedPath =
+        new URLSearchParams(window.location.search).get('redirect') || '/panel';
+      navigate(intendedPath);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
