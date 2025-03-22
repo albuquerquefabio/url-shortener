@@ -5,4 +5,5 @@ export interface UrlShortener {
   createdAt: Date | string;
   updatedAt: Date | string;
   status: boolean;
+  clicks: number;
 }

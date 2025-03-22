@@ -14,7 +14,6 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 ## Project Structure
 
 - **apps/**: Contains the backend and frontend applications.
-- **libs/**: Contains shared libraries used across the applications.
 
 ## Features
 
@@ -22,6 +21,11 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 - Redirect Functionality
 - Copy to Clipboard
 - Theme Management
+- Custom URL Slugs
+- Visit Analytics
+- User Authentication
+- Rate Limiting
+- URL Validation
 
 ### Feature Checklist
 
@@ -34,11 +38,11 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 
 #### Extra:
 
-- [ ] Add support for accounts so people can view the URLs they created
+- [x] Add support for accounts so people can view the URLs they created
 - [x] Validate the URL provided is an actual URL
 - [x] Display an error message if invalid
 - [x] Make it easy to copy the shortened URL to the clipboard
-- [ ] Allow users to modify the slug of their URL
+- [x] Allow users to modify the slug of their URL
 - [x] Track visits to the shortened URL
 - [x] Add rate-limiting to prevent bad-actors from spamming the service
 
@@ -47,6 +51,8 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 - React + SCSS + Ant Design
 - Node.js + NestJS + TypeScript
 - MongoDB
+- Redis
+- JWT
 - Docker
 
 ## How to Run the Project
@@ -86,9 +92,15 @@ To start only the MongoDB database using Docker:
 docker compose up -d mongodb
 ```
 
+To start only the Redis database using Docker:
+
+```bash
+docker compose up -d redis
+```
+
 ### Run the Project in Production Mode
 
-To run the entire project (backend, frontend, and database) in production mode using Docker:
+To run the entire project (backend, frontend, Redis and database) in production mode using Docker:
 
 ```bash
 docker compose up -d
