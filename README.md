@@ -52,6 +52,8 @@ Nx is a powerful tool for managing monorepos, which allows multiple projects to 
 - React + SCSS + Ant Design
 - Node.js + NestJS + TypeScript
 - MongoDB
+- Redis
+- JWT
 - Docker
 
 ## How to Run the Project
