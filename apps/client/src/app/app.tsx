@@ -1,7 +1,6 @@
 import styles from './app.module.scss';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import { Flex, Layout, ConfigProvider, theme as antdTheme } from 'antd';
 import { useTheme, ThemeSwitcher } from '../theme-switcher/theme-switcher'; // Import new module
 import { ApiProvider } from '../context/ApiContext';
@@ -12,8 +11,9 @@ import Login from '../components/login/Login';
 import Signup from '../components/signup/Signup';
 import { NavBar } from '../components/navbar/NavBar';
 import Panel from '../components/panel/Panel';
-import { Shortener } from '../shorterner/shortener';
 import { Redirect } from '../redirect/Redirect';
+import { Shortener } from '../shortener/shortener';
+
 
 const { Content } = Layout;
 
