@@ -29,7 +29,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const currentPath = window.location.pathname;
-    if (token && currentPath !== '/') {
+    const isShortUrl = /^\/[a-zA-Z0-9-_]+$/.test(currentPath);
+    if (token && !isShortUrl && currentPath !== '/') {
       fetchUser();
     } else {
       setUser(null);

@@ -36,8 +36,10 @@ export const NavBar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
+    const isShortUrl = /^\/[a-zA-Z0-9-_]+$/.test(window.location.pathname);
     if (
       !token &&
+      !isShortUrl &&
       window.location.pathname !== '/signup' &&
       window.location.pathname !== '/'
     ) {
